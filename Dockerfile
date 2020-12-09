@@ -11,10 +11,16 @@ FROM jenkins/jenkins:lts
 
 USER root
 
+
+
 COPY blueocean/target/plugins /usr/share/jenkins/ref/plugins/
 
 RUN for f in /usr/share/jenkins/ref/plugins/*.hpi; do mv "$f" "${f%%hpi}jpi"; done
 RUN install-plugins.sh antisamy-markup-formatter matrix-auth # for security, you know
+
+# 设置中国时区
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/Shanghai" > /etc/timezone
+
 
 # Force use of locally built blueocean plugin
 RUN for f in /usr/share/jenkins/ref/plugins/blueocean-*.jpi; do mv "$f" "$f.override"; done
