@@ -1,6 +1,6 @@
 version: '2.4'
 services:
-  kenkins:
+  jenkins:
     image: "ghcr.io/fengzhao-study-notes/blueocean"
     restart: always
     privileged: true
